@@ -25,6 +25,8 @@
       - vim
       - docker  
       - kubelet
+      - kubeadm
+      - kubectl
 
 
 -   name: Disable Selinux
@@ -33,4 +35,12 @@
 
 -  name: Set k8s paramater for Kernel
    shell: sysctl --system
-  
+ 
+-  name: Enable k8s Services
+   service:
+     name: "{{ item }}"
+     state: started
+     enabled: yes 
+   with_items:
+       - docker
+       - kubelet
